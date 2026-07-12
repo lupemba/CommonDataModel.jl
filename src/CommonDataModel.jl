@@ -52,6 +52,9 @@ import Statistics:
     var
 
 
+import CategoricalArrays: 
+    CategoricalValue,
+    CategoricalArray
 
 
 include("CatArrays.jl")
@@ -70,6 +73,7 @@ include("aggregation.jl")
 include("groupby.jl")
 include("rolling.jl")
 include("memory_dataset.jl")
+include("categoricalvariable.jl")
 
 end # module CommonDataModel
 

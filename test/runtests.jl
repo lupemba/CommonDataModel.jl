@@ -39,6 +39,10 @@ end
     include("test_rolling.jl")
 end
 
+@testset "categorical variable" begin
+    include("test_categorical.jl")
+end
+
 @testset "aqua checks" begin
     include("test_aqua.jl")
 end
