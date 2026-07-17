@@ -54,7 +54,8 @@ import Statistics:
 
 import CategoricalArrays: 
     CategoricalValue,
-    CategoricalArray
+    CategoricalArray,
+    CategoricalPool
 
 
 include("CatArrays.jl")
