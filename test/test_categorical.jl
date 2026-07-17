@@ -1,6 +1,6 @@
 using Test
-using CommonDataModel: 
-    AbstractCategoricalVariable,
+using CommonDataModel:
+    CategoricalVariable,
     AbstractVariable,
     MemoryDataset,
     defVar,
@@ -11,14 +11,6 @@ import CommonDataModel as CDM
 import DiskArrays
 import CategoricalArrays: CategoricalValue, CategoricalArray, unwrap, levels
 
-
-struct CategoricalVariable{V, N, R} <: AbstractCategoricalVariable{V, N, R}
-    data::AbstractVariable{R,N}
-    mapping::Dict{R,V}
-end
-
-CDM.getvaluearray(a::CategoricalVariable) = a.data
-CDM.getmapping(a::CategoricalVariable) = a.mapping
 
 const CLOUD_MAPPING = Dict{Int8, String}(
     Int8(0) => "Not processed",
@@ -48,12 +40,13 @@ function make_mock()
 end
 
 
-@testset "AbstractCategoricalVariable — eltype" begin
+@testset "CategoricalVariable — eltype" begin
     mock = make_mock()
     @test eltype(mock) == CategoricalValue{String, UInt32}
 end
 
-@testset "AbstractCategoricalVariable — collect" begin
+
+@testset "CategoricalVariable — collect" begin
     mock = make_mock()
     ca = collect(mock)
 
@@ -71,7 +64,7 @@ end
 end
 
 
-@testset "AbstractCategoricalVariable — array getindex" begin
+@testset "CategoricalVariable — array getindex" begin
     mock = make_mock()
 
     slice = mock[1:2, :]
@@ -90,7 +83,7 @@ end
 end
 
 
-@testset "AbstractCategoricalVariable — scalar getindex" begin
+@testset "CategoricalVariable — scalar getindex" begin
     mock = make_mock()
 
     val = mock[1, 1]
@@ -101,7 +94,7 @@ end
     @test unwrap(val2) == CLOUD_MAPPING[RAW_CODES[2, 4]]
 end
 
-@testset "AbstractCategoricalVariable — broadcasting" begin
+@testset "CategoricalVariable — broadcasting" begin
     mock = make_mock()
 
     # Broadcast a function element-wise: unwrap over all elements
@@ -111,7 +104,7 @@ end
 end
 
 
-@testset "AbstractCategoricalVariable — in" begin
+@testset "CategoricalVariable — in" begin
     mock = make_mock()
 
     @test "Cloud free" in mock
